@@ -21,11 +21,11 @@ jq -r '.intervals[].streams[0] | "\(.start) \(.snd_cwnd)"' $1 > cwnd.dat
 cat > plot_cwnd.gp <<EOF
 set term pdf
 set grid
-set output "results/${base}_cwnd.pdf"
+set output "plots/${base}_cwnd.pdf"
 set xlabel 'Time (seconds)'
 set ylabel 'Congestion Window or cwnd (bytes)'
 set title 'cwnd evolution over time'
-plot 'cwnd.dat' using 1:2 pt 7 ps 0.05
+plot 'cwnd.dat' using 1:2 pt 7 ps 0.05 with lines
 EOF
 
 cat cwnd.dat
@@ -35,5 +35,5 @@ gnuplot plot_cwnd.gp
 # Clean up temporary files
 rm cwnd.dat plot_cwnd.gp
 
-echo "Plot created as results/${base}_cwnd.pdf"
+echo "Plot created as plots/${base}_cwnd.pdf"
 

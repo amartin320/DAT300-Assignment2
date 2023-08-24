@@ -10,28 +10,32 @@ if [ $(($# < 1)) -eq 1 ]; then
 fi
 
 base=$(basename $1 .json)
-echo $base
+
+mbps=$(jq -r '.end.sum_received.bits_per_second/1000000' $1)
+echo "Average download throughput: $mbps Mbps "
 
 # Extract timestamps and data rate values from JSON and save to a temporary file
 jq -r '.intervals[].streams[0] | "\(.start) \(.bits_per_second/1000000)"' $1 > mbps.dat
+
 
 # Generate gnuplot script to create the plot
 cat > plot_datarate.gp <<EOF
 set term pdf
 set grid
-set output "results/${base}_datarate.pdf"
+set output "plots/${base}_datarate.pdf"
 set xlabel 'Time (seconds)'
 set ylabel 'Data rate (Mbit/s)'
+set yrange [0:25]
 set title 'Data rate evolution over time'
-plot 'mbps.dat' using 1:2 pt 7 ps 0.1
+plot 'mbps.dat' using 1:2 pt 7 ps 0.1 with lines
 EOF
 
-cat mbps.dat
+#cat mbps.dat
 # Generate the plot using gnuplot
 gnuplot plot_datarate.gp
 
 # Clean up temporary files
 rm mbps.dat plot_datarate.gp
 
-echo "Plot created as results/${base}_datarate.pdf"
+echo "Plot created as plots/${base}_datarate.pdf"
 
