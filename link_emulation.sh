@@ -2,11 +2,12 @@
 # Author: Aitor Martin Rodriguez (University of Stavanger)
 
 # Check input arguments and provide usage help
-if [ $(($# % 2)) -eq 1 ]; then
+if [ $(($# % 2)) -eq 1 ] || [ $# -eq 0 ] ; then
 	echo "missing arguments."
 	echo "usage: ./link_emulation.sh <interface1> <interface2> [parameters and values]"
 	echo "example: ./link_emulation.sh eth1 eth2 delay 20ms loss 0.1%"
 	echo "parameters: delay(ms), rate(Mbit), loss(%), limit(packets)"
+	echo "exiting..."
 	exit
 fi
 

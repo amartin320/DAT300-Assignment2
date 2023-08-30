@@ -6,6 +6,8 @@
 if [ $(($# < 1)) -eq 1 ]; then
 	echo "missing arguments."
 	echo "usage: ./plot_datarate.sh <iperf3_sender_data.json>"
+	echo "exiting..."
+	exit
 
 fi
 

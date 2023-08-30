@@ -8,6 +8,8 @@
 if [ $(($# < 1)) -eq 1 ]; then
 	echo "missing arguments."
 	echo "usage: ./plot_cwnd.sh <iperf3_data.json>"
+	echo "exiting..."
+	exit
 
 fi
 
