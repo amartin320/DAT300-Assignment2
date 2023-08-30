@@ -30,7 +30,7 @@ set title 'cwnd evolution over time'
 plot 'cwnd.dat' using 1:2 pt 7 ps 0.05 with lines
 EOF
 
-cat cwnd.dat
+# cat cwnd.dat
 # Generate the plot using gnuplot
 gnuplot plot_cwnd.gp
 
