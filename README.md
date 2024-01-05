@@ -1,1 +1,1 @@
-# DAT300 - Assignment2
+# Kommtek - LLA#2
